@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WeGokarna - Premium Bike Rentals</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>:where([class^="ri-"])::before { content: "\f3c2"; }</style>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#FF6B6B',
+secondary: '#4ECDC4'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+</head>
+<body class="bg-gray-50">
+<nav class="fixed top-0 w-full bg-white shadow-sm z-50">
+<div class="px-4 py-3 flex items-center justify-between">
+<h1 class="text-2xl font-['Pacifico'] text-primary">logo</h1>
+<div class="flex items-center gap-4">
+<button class="w-8 h-8 flex items-center justify-center">
+<i class="ri-search-line text-gray-600"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center">
+<i class="ri-user-line text-gray-600"></i>
+</button>
+</div>
+</div>
+</nav>
+<main class="mt-[56px] mb-[64px]">
+<div class="relative h-[200px] overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/6750e54a53ac02743749a5f26d8b615b.jpg" class="w-full h-full object-cover" alt="Hero">
+<div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+<div class="text-center text-white">
+<h2 class="text-2xl font-bold mb-2">Premium Bike Rentals</h2>
+<p class="text-sm">Explore Gokarna on Two Wheels</p>
+</div>
+</div>
+</div>
+<div class="p-4">
+<div class="bg-white rounded-lg shadow-sm p-4 mb-6">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full">
+<i class="ri-calendar-line text-primary"></i>
+</div>
+<input type="date" class="flex-1 text-sm border-none" value="2025-02-15">
+</div>
+<button class="w-full bg-primary text-white py-3 !rounded-button">Search Available Bikes</button>
+</div>
+<h3 class="text-lg font-semibold mb-4">Featured Bikes</h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-white rounded-lg shadow-sm overflow-hidden">
+<img src="./Hunter350.png" class="w-full h-32 object-cover" alt="Bike">
+<div class="p-3">
+<h4 class="font-medium mb-1">Hunter 350</h4>
+<div class="flex items-center gap-1 text-sm text-yellow-400 mb-2">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+<span class="text-gray-600 ml-1">(128)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-primary font-medium">1500₨/day</span>
+<button class="text-sm text-primary">Book Now</button>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm overflow-hidden">
+<img src="./activa6g.png" class="w-full h-32 object-cover" alt="Bike">
+<div class="p-3">
+<h4 class="font-medium mb-1">Activa 6G</h4>
+<div class="flex items-center gap-1 text-sm text-yellow-400 mb-2">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+<span class="text-gray-600 ml-1">(96)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-primary font-medium">500₨/day</span>
+<button class="text-sm text-primary">Book Now</button>
+</div>
+</div>
+</div>
+</div>
+<h3 class="text-lg font-semibold mt-6 mb-4">Categories</h3>
+<div class="grid grid-cols-4 gap-4">
+<div class="text-center">
+<div class="w-16 h-16 mx-auto mb-2 rounded-full overflow-hidden">
+<img src="./Hunter350.png" class="w-full h-full object-cover" alt="Mountain">
+</div>
+<span class="text-xs">Mountain</span>
+</div>
+<div class="text-center">
+<div class="w-16 h-16 mx-auto mb-2 rounded-full overflow-hidden">
+<img src="./activa6g.png" class="w-full h-full object-cover" alt="Road">
+</div>
+<span class="text-xs">Road</span>
+</div>
+<div class="text-center">
+<div class="w-16 h-16 mx-auto mb-2 rounded-full overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/7254394cceb4d5ec0dddabbbbdd9cb37.jpg" class="w-full h-full object-cover" alt="Hybrid">
+</div>
+<span class="text-xs">Hybrid</span>
+</div>
+<div class="text-center">
+<div class="w-16 h-16 mx-auto mb-2 rounded-full overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/4e5a70202fd1aa87432c5951d8f05951.jpg" class="w-full h-full object-cover" alt="Electric">
+</div>
+<span class="text-xs">Electric</span>
+</div>
+</div>
+<h3 class="text-lg font-semibold mt-6 mb-4">Recent Reviews</h3>
+<div class="space-y-4">
+<div class="bg-white rounded-lg shadow-sm p-4">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 rounded-full bg-gray-200"></div>
+<div>
+<h4 class="font-medium">Michael Thompson</h4>
+<div class="flex items-center gap-1 text-sm text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+</div>
+</div>
+<p class="text-sm text-gray-600">Amazing experience! The bike was in perfect condition and the service was excellent. Will definitely rent again.</p>
+</div>
+<div class="bg-white rounded-lg shadow-sm p-4">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 rounded-full bg-gray-200"></div>
+<div>
+<h4 class="font-medium">Sarah Williams</h4>
+<div class="flex items-center gap-1 text-sm text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+</div>
+</div>
+<p class="text-sm text-gray-600">Great bikes and friendly staff. The mountain trails were incredible. Highly recommended!</p>
+</div>
+</div>
+</div>
+</main>
+<nav class="fixed bottom-0 w-full bg-white border-t border-gray-100">
+<div class="grid grid-cols-4 h-16">
+<button class="flex flex-col items-center justify-center gap-1">
+<i class="ri-home-line text-primary"></i>
+<span class="text-[10px]">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1">
+<i class="ri-bike-line text-gray-400"></i>
+<span class="text-[10px]">Bikes</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1">
+<i class="ri-calendar-line text-gray-400"></i>
+<span class="text-[10px]">Bookings</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1">
+<i class="ri-user-line text-gray-400"></i>
+<span class="text-[10px]">Profile</span>
+</button>
+</div>
+</nav>
+</body>
+</html>

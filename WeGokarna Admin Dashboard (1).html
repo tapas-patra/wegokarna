@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=375px, initial-scale=1.0">
+    <title>WeGokarna Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0066FF',
+                        secondary: '#FF6B00'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        .drawer {
+            transition: transform 0.3s ease-in-out;
+        }
+        .drawer.closed {
+            transform: translateX(-100%);
+        }
+        .main-content {
+            transition: margin-left 0.3s ease-in-out;
+        }
+        .main-content.expanded {
+            margin-left: 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <nav class="fixed top-0 left-0 right-0 h-16 bg-white shadow-sm z-50 flex items-center justify-between px-4">
+        <div class="flex items-center gap-4">
+            <button id="menuToggle" class="w-10 h-10 flex items-center justify-center">
+                <i class="ri-menu-line text-xl"></i>
+            </button>
+            <span class="font-['Pacifico'] text-xl text-primary">logo</span>
+        </div>
+        <div class="flex items-center gap-4">
+            <div class="relative">
+                <button class="w-10 h-10 flex items-center justify-center">
+                    <i class="ri-notification-3-line text-xl"></i>
+                    <span class="absolute top-1 right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">3</span>
+                </button>
+            </div>
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 rounded-full overflow-hidden">
+                    <img src="https://public.readdy.ai/ai/img_res/5b27f92797efb84ef16fa9d72ae6bd47.jpg" class="w-full h-full object-cover" alt="admin">
+                </div>
+                <span class="text-sm font-medium">WeGokarna Admin</span>
+            </div>
+        </div>
+    </nav>
+
+    <div id="drawer" class="drawer fixed top-0 left-0 h-full w-64 bg-white shadow-lg z-40 pt-20">
+        <div class="flex flex-col h-full">
+            <div class="flex-1 px-4">
+                <div class="space-y-1">
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 bg-primary/10 text-primary rounded-lg">
+                        <i class="ri-dashboard-line text-lg"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+                        <i class="ri-bike-line text-lg"></i>
+                        <span>Bikes</span>
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+                        <i class="ri-calendar-line text-lg"></i>
+                        <span>Bookings</span>
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+                        <i class="ri-user-line text-lg"></i>
+                        <span>Users</span>
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+                        <i class="ri-file-chart-line text-lg"></i>
+                        <span>Reports</span>
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg">
+                        <i class="ri-settings-line text-lg"></i>
+                        <span>Settings</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <main id="mainContent" class="main-content ml-64 pt-20 px-6 pb-20">
+        <div class="grid grid-cols-2 gap-4 mb-6">
+            <div class="bg-white p-4 rounded-lg shadow-sm">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm text-gray-500">Total Revenue</span>
+                    <div class="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
+                        <i class="ri-money-dollar-circle-line text-primary"></i>
+                    </div>
+                </div>
+                <div class="flex items-end gap-2">
+                    <span class="text-2xl font-semibold">24,589₨</span>
+                    <span class="text-xs text-green-500 flex items-center">
+                        <i class="ri-arrow-up-line"></i>
+                        12.5%
+                    </span>
+                </div>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow-sm">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm text-gray-500">Active Bookings</span>
+                    <div class="w-8 h-8 bg-secondary/10 rounded-lg flex items-center justify-center">
+                        <i class="ri-calendar-check-line text-secondary"></i>
+                    </div>
+                </div>
+                <div class="flex items-end gap-2">
+                    <span class="text-2xl font-semibold">156</span>
+                    <span class="text-xs text-green-500 flex items-center">
+                        <i class="ri-arrow-up-line"></i>
+                        8.2%
+                    </span>
+                </div>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow-sm">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm text-gray-500">Available Bikes</span>
+                    <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
+                        <i class="ri-bike-line text-green-500"></i>
+                    </div>
+                </div>
+                <div class="flex items-end gap-2">
+                    <span class="text-2xl font-semibold">42</span>
+                    <span class="text-xs text-red-500 flex items-center">
+                        <i class="ri-arrow-down-line"></i>
+                        3.1%
+                    </span>
+                </div>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow-sm">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm text-gray-500">Total Users</span>
+                    <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+                        <i class="ri-user-line text-purple-500"></i>
+                    </div>
+                </div>
+                <div class="flex items-end gap-2">
+                    <span class="text-2xl font-semibold">1,284</span>
+                    <span class="text-xs text-green-500 flex items-center">
+                        <i class="ri-arrow-up-line"></i>
+                        15.3%
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mb-6">
+            <div class="bg-white p-4 rounded-lg shadow-sm">
+                <h3 class="text-lg font-medium mb-4">Revenue Trend</h3>
+                <div id="revenueChart" class="w-full h-64"></div>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow-sm">
+                <h3 class="text-lg font-medium mb-4">Bike Utilization</h3>
+                <div id="utilizationChart" class="w-full h-64"></div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-sm">
+            <div class="p-4 border-b">
+                <h3 class="text-lg font-medium">Recent Bookings</h3>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="text-left bg-gray-50">
+                            <th class="p-4 text-sm font-medium text-gray-500">Booking ID</th>
+                            <th class="p-4 text-sm font-medium text-gray-500">Customer</th>
+                            <th class="p-4 text-sm font-medium text-gray-500">Bike</th>
+                            <th class="p-4 text-sm font-medium text-gray-500">Duration</th>
+                            <th class="p-4 text-sm font-medium text-gray-500">Status</th>
+                            <th class="p-4 text-sm font-medium text-gray-500">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-t">
+                            <td class="p-4">#BK8721</td>
+                            <td class="p-4">Sarah Thompson</td>
+                            <td class="p-4">Mountain Bike Pro</td>
+                            <td class="p-4">3 Days</td>
+                            <td class="p-4">
+                                <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-700 rounded-full">Active</span>
+                            </td>
+                            <td class="p-4">
+                                <button class="text-primary hover:text-primary/80">View Details</button>
+                            </td>
+                        </tr>
+                        <tr class="border-t">
+                            <td class="p-4">#BK8720</td>
+                            <td class="p-4">James Wilson</td>
+                            <td class="p-4">City Cruiser</td>
+                            <td class="p-4">1 Day</td>
+                            <td class="p-4">
+                                <span class="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-full">Completed</span>
+                            </td>
+                            <td class="p-4">
+                                <button class="text-primary hover:text-primary/80">View Details</button>
+                            </td>
+                        </tr>
+                        <tr class="border-t">
+                            <td class="p-4">#BK8719</td>
+                            <td class="p-4">Emily Parker</td>
+                            <td class="p-4">Electric Bike Plus</td>
+                            <td class="p-4">2 Days</td>
+                            <td class="p-4">
+                                <span class="px-2 py-1 text-xs font-medium bg-red-100 text-red-700 rounded-full">Cancelled</span>
+                            </td>
+                            <td class="p-4">
+                                <button class="text-primary hover:text-primary/80">View Details</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <button class="fixed right-6 bottom-6 w-14 h-14 bg-primary text-white rounded-full shadow-lg flex items-center justify-center hover:bg-primary/90">
+        <i class="ri-add-line text-2xl"></i>
+    </button>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const drawer = document.getElementById('drawer');
+        const mainContent = document.getElementById('mainContent');
+
+        menuToggle.addEventListener('click', () => {
+            drawer.classList.toggle('closed');
+            mainContent.classList.toggle('expanded');
+        });
+
+        const revenueChart = echarts.init(document.getElementById('revenueChart'));
+        const utilizationChart = echarts.init(document.getElementById('utilizationChart'));
+
+        const revenueOption = {
+            tooltip: {
+                trigger: 'axis'
+            },
+            xAxis: {
+                type: 'category',
+                data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                data: [820, 932, 901, 934, 1290, 1330, 1320],
+                type: 'line',
+                smooth: true,
+                itemStyle: {
+                    color: '#0066FF'
+                }
+            }]
+        };
+
+        const utilizationOption = {
+            tooltip: {
+                trigger: 'item'
+            },
+            series: [{
+                type: 'pie',
+                radius: ['40%', '70%'],
+                data: [
+                    { value: 42, name: 'Available' },
+                    { value: 28, name: 'In Use' },
+                    { value: 5, name: 'Maintenance' }
+                ],
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }]
+        };
+
+        revenueChart.setOption(revenueOption);
+        utilizationChart.setOption(utilizationOption);
+        window.addEventListener('resize', () => {
+            revenueChart.resize();
+            utilizationChart.resize();
+        });
+    </script>
+</body>
+</html>

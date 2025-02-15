@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        .skeleton {
+            animation: skeleton-loading 1s linear infinite alternate;
+        }
+        @keyframes skeleton-loading {
+            0% { background-color: #f0f0f0; }
+            100% { background-color: #e0e0e0; }
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5',
+                        secondary: '#9333EA'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <div class="w-[375px] min-h-[762px] mx-auto relative bg-white">
+        <header class="fixed top-0 w-[375px] z-50 bg-white border-b">
+            <div class="h-14 px-4 flex items-center justify-between">
+                <button class="w-10 h-10 flex items-center justify-center">
+                    <i class="ri-arrow-left-s-line text-xl"></i>
+                </button>
+                <h1 class="text-lg font-semibold">My Bookings</h1>
+                <button class="w-10 h-10 flex items-center justify-center" onclick="toggleFilter()">
+                    <i class="ri-filter-3-line text-xl"></i>
+                </button>
+            </div>
+            <div class="px-4 py-2 flex space-x-4 border-b">
+                <button class="flex-1 py-2 text-center text-primary border-b-2 border-primary">Active</button>
+                <button class="flex-1 py-2 text-center text-gray-500" onclick="switchTab(this)">Completed</button>
+            </div>
+        </header>
+
+        <main class="pt-28 pb-20 px-4" id="bookingList">
+        </main>
+
+        <div id="emptyState" class="hidden pt-28 pb-20 px-4 text-center">
+            <img src="https://public.readdy.ai/ai/img_res/1274224aa00c038f01a1a6acb8c85841.jpg" class="w-48 h-48 mx-auto mb-6" alt="Empty state illustration">
+            <h3 class="text-xl font-semibold mb-2">No bookings yet</h3>
+            <p class="text-gray-500 mb-6">Start your adventure by booking a bike now</p>
+            <button class="bg-primary text-white px-8 py-3 !rounded-button">Book Now</button>
+        </div>
+
+        <div id="filterModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+            <div class="absolute bottom-0 w-full bg-white rounded-t-xl p-4">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-semibold">Sort by</h3>
+                    <button onclick="toggleFilter()">
+                        <i class="ri-close-line text-xl"></i>
+                    </button>
+                </div>
+                <div class="space-y-4">
+                    <button class="w-full text-left py-2 px-4 rounded hover:bg-gray-100">Latest First</button>
+                    <button class="w-full text-left py-2 px-4 rounded hover:bg-gray-100">Oldest First</button>
+                    <button class="w-full text-left py-2 px-4 rounded hover:bg-gray-100">Price: High to Low</button>
+                    <button class="w-full text-left py-2 px-4 rounded hover:bg-gray-100">Price: Low to High</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const mockBookings = [
+            {
+                id: "BK2502",
+                bikeModel: "Royal Enfield Classic 350",
+                startDate: "2025-02-15 10:00",
+                endDate: "2025-02-16 10:00",
+                status: "active",
+                amount: 2500,
+                image: "https://public.readdy.ai/ai/img_res/9a8e437a1146e1ac68eb1031a99c9405.jpg"
+            },
+            {
+                id: "BK2501",
+                bikeModel: "Honda CB350RS",
+                startDate: "2025-02-14 14:00",
+                endDate: "2025-02-15 14:00",
+                status: "active",
+                amount: 2000,
+                image: "https://public.readdy.ai/ai/img_res/316a292c8b64674e18d073a82e859721.jpg"
+            }
+        ];
+
+        function renderBookings() {
+            const bookingList = document.getElementById('bookingList');
+            const emptyState = document.getElementById('emptyState');
+
+            if (mockBookings.length === 0) {
+                bookingList.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            bookingList.classList.remove('hidden');
+            emptyState.classList.add('hidden');
+
+            bookingList.innerHTML = mockBookings.map(booking => `
+                <div class="mb-4 p-4 bg-white rounded-lg shadow-sm border">
+                    <div class="flex items-start">
+                        <img src="${booking.image}" class="w-20 h-20 rounded-lg object-cover" alt="${booking.bikeModel}">
+                        <div class="ml-4 flex-1">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="font-semibold">${booking.bikeModel}</h3>
+                                    <p class="text-sm text-gray-500">Booking ID: ${booking.id}</p>
+                                </div>
+                                <span class="px-2 py-1 text-xs font-medium ${booking.status === 'active' ? 'text-green-600 bg-green-50' : 'text-gray-600 bg-gray-50'} rounded-full">
+                                    ${booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
+                                </span>
+                            </div>
+                            <div class="mt-2 text-sm text-gray-600">
+                                <p>From: ${new Date(booking.startDate).toLocaleString()}</p>
+                                <p>To: ${new Date(booking.endDate).toLocaleString()}</p>
+                            </div>
+                            <div class="mt-2 flex justify-between items-center">
+                                <span class="font-semibold">₹ ${booking.amount}</span>
+                                <button class="text-primary text-sm font-medium">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleFilter() {
+            const modal = document.getElementById('filterModal');
+            modal.classList.toggle('hidden');
+        }
+
+        function switchTab(tab) {
+            const tabs = tab.parentElement.children;
+            Array.from(tabs).forEach(t => {
+                t.classList.remove('text-primary', 'border-b-2', 'border-primary');
+                t.classList.add('text-gray-500');
+            });
+            tab.classList.add('text-primary', 'border-b-2', 'border-primary');
+            tab.classList.remove('text-gray-500');
+        }
+
+        renderBookings();
+    </script>
+</body>
+</html>

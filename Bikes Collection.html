@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bikes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        .filter-modal {
+            transform: translateY(100%);
+            transition: transform 0.3s ease-out;
+        }
+        .filter-modal.show {
+            transform: translateY(0);
+        }
+        .card {
+            transition: transform 0.2s ease;
+        }
+        .card:active {
+            transform: scale(0.98);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563EB',
+                        secondary: '#F59E0B'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white" style="width: 375px; min-height: 762px;">
+    <nav class="fixed top-0 w-full bg-white z-50 border-b">
+        <div class="px-4 py-3 flex items-center justify-between">
+            <h1 class="text-xl font-semibold">Bikes</h1>
+            <div class="w-8 h-8 flex items-center justify-center">
+                <i class="ri-filter-3-line text-lg"></i>
+            </div>
+        </div>
+        <div class="px-4 pb-3">
+            <div class="relative">
+                <input type="text" placeholder="Search bikes..." class="w-full px-10 py-2 bg-gray-50 rounded-full text-sm focus:outline-none">
+                <i class="ri-search-line absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            </div>
+        </div>
+    </nav>
+
+    <main class="mt-28 mb-20 px-4">
+        <div class="grid grid-cols-2 gap-4" id="bikeList">
+        </div>
+    </main>
+
+    <div class="filter-modal fixed bottom-0 left-0 w-full bg-white rounded-t-xl shadow-lg z-40 p-4">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold">Filters</h3>
+            <button class="close-filter"><i class="ri-close-line text-xl"></i></button>
+        </div>
+        <div class="space-y-4">
+            <div>
+                <label class="text-sm font-medium">Bike Type</label>
+                <div class="flex flex-wrap gap-2 mt-2">
+                    <button class="px-3 py-1 border rounded-full text-sm hover:bg-primary hover:text-white">Mountain</button>
+                    <button class="px-3 py-1 border rounded-full text-sm hover:bg-primary hover:text-white">Road</button>
+                    <button class="px-3 py-1 border rounded-full text-sm hover:bg-primary hover:text-white">Electric</button>
+                </div>
+            </div>
+            <div>
+                <label class="text-sm font-medium">Price Range</label>
+                <input type="range" min="0" max="5000" class="w-full mt-2">
+                <div class="flex justify-between text-sm text-gray-500">
+                    <span>0₨</span>
+                    <span>2000₨</span>
+                </div>
+            </div>
+            <button class="w-full bg-primary text-white py-2 rounded-button mt-4">Apply Filters</button>
+        </div>
+    </div>
+
+    <nav class="fixed bottom-0 w-full bg-white border-t">
+        <div class="grid grid-cols-4 py-2">
+            <a class="flex flex-col items-center justify-center space-y-1">
+                <div class="w-6 h-6 flex items-center justify-center">
+                    <i class="ri-home-line text-gray-500"></i>
+                </div>
+                <span class="text-xs text-gray-500">Home</span>
+            </a>
+            <a class="flex flex-col items-center justify-center space-y-1">
+                <div class="w-6 h-6 flex items-center justify-center">
+                    <i class="ri-bike-line text-primary"></i>
+                </div>
+                <span class="text-xs text-primary">Bikes</span>
+            </a>
+            <a class="flex flex-col items-center justify-center space-y-1">
+                <div class="w-6 h-6 flex items-center justify-center">
+                    <i class="ri-heart-line text-gray-500"></i>
+                </div>
+                <span class="text-xs text-gray-500">Bookings</span>
+            </a>
+            <a class="flex flex-col items-center justify-center space-y-1">
+                <div class="w-6 h-6 flex items-center justify-center">
+                    <i class="ri-user-line text-gray-500"></i>
+                </div>
+                <span class="text-xs text-gray-500">Profile</span>
+            </a>
+        </div>
+    </nav>
+
+    <script>
+        const mockBikes = [
+            {
+                name: "Activa 6G",
+                type: "Road Bike",
+                price: 500,
+                rating: 4.8,
+                image: "./activa6g.png"
+            },
+            {
+                name: "Hunter 350",
+                type: "Mountain Bike",
+                price: 2499,
+                rating: 4.9,
+                image: "./Hunter350.png"
+            },
+            {
+                name: "E-Rider Boost",
+                type: "Electric Bike",
+                price: 1899,
+                rating: 4.7,
+                image: "https://public.readdy.ai/ai/img_res/8dd657053417dcaa7ff025fb4b7a4b6e.jpg"
+            },
+            {
+                name: "Urban Commuter",
+                type: "City Bike",
+                price: 899,
+                rating: 4.6,
+                image: "https://public.readdy.ai/ai/img_res/3909ec0d99853c8f0fa9d69d02380519.jpg"
+            }
+        ];
+
+        function renderBikes() {
+            const bikeList = document.getElementById('bikeList');
+            bikeList.innerHTML = mockBikes.map(bike => `
+                <div class="card bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="${bike.image}" alt="${bike.name}" class="w-full h-32 object-cover">
+                    <div class="p-3">
+                        <h3 class="font-medium text-sm">${bike.name}</h3>
+                        <p class="text-xs text-gray-500 mt-1">${bike.type}</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <span class="text-primary font-semibold">${bike.price}₨</span>
+                            <div class="flex items-center">
+                                <i class="ri-star-fill text-secondary text-xs"></i>
+                                <span class="text-xs ml-1">${bike.rating}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        document.querySelector('.ri-filter-3-line').addEventListener('click', () => {
+            document.querySelector('.filter-modal').classList.add('show');
+        });
+
+        document.querySelector('.close-filter').addEventListener('click', () => {
+            document.querySelector('.filter-modal').classList.remove('show');
+        });
+
+        renderBikes();
+    </script>
+</body>
+</html>
